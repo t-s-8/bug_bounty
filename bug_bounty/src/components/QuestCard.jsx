@@ -1,10 +1,10 @@
 import React from 'react'
 // src/components/QuestCard.jsx
-function QuestCard({ title, xp, difficulty, tags }) {
+function QuestCard({ title, xp, difficulty, tags, onComplete, isCompleted }) {
   
     // A simple function to handle the button click
     const handleAccept = () => {
-      alert(`Quest Accepted: ${title}`);
+      onComplete(xp);
     };
   
     // Color logic based on difficulty
@@ -15,7 +15,7 @@ function QuestCard({ title, xp, difficulty, tags }) {
     };
   
     return (
-      <div className="bg-slate-800 p-6 rounded-xl border border-slate-700 hover:border-indigo-500 transition-all shadow-lg hover:shadow-indigo-500/20 flex flex-col h-full group">
+      <div className={`bg-slate-800 p-6 rounded-xl border border-slate-700 transition-all shadow-lg flex flex-col h-full group ${isCompleted ? 'opacity-50 border-slate-600' : 'hover:border-indigo-500 hover:shadow-indigo-500/20'}`}>
         
         {/* Card Header: Difficulty & XP */}
         <div className="flex justify-between items-start mb-4">
@@ -33,7 +33,7 @@ function QuestCard({ title, xp, difficulty, tags }) {
         </h3>
   
         {/* Description Placeholder */}
-        <p className="text-gray-400 text-sm mb-6 flex-grow">
+        <p className="text-gray-400 text-sm mb-6 grow">
           Help the community by fixing this issue. Click to view full details on GitHub...
         </p>
   
@@ -49,9 +49,14 @@ function QuestCard({ title, xp, difficulty, tags }) {
   
           <button 
             onClick={handleAccept}
-            className="w-full py-2 bg-indigo-600 hover:bg-indigo-700 text-white font-bold rounded-lg transition-colors flex items-center justify-center gap-2"
+            disabled={isCompleted} // <--- Disables click
+            className={`w-full py-2 font-bold rounded-lg transition-colors flex items-center justify-center gap-2 
+              ${isCompleted 
+                ? 'bg-slate-700 text-slate-400 cursor-not-allowed' // Gray Style
+                : 'bg-indigo-600 hover:bg-indigo-700 text-white active:scale-95' // Active Style
+              }`}
           >
-            <span>⚔️</span> Accept Quest
+           {isCompleted ? "✅ Completed" : "⚔️ Accept Quest"}
           </button>
         </div>
   
