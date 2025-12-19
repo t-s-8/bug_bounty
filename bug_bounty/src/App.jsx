@@ -26,7 +26,7 @@ function App() {
   };
 
   return (
-    <div className="bg-slate-900 min-h-screen text-white font-sans">
+    <div className="min-h-screen text-white font-sans">
       {/* Pass XP to Navbar so the score updates */}
       <Navbar currentXP={userXP} />
       
